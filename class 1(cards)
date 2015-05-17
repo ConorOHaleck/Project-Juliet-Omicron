@@ -1,0 +1,102 @@
+Enter file contents here//Created by: Tiffany, Conor, Robert, and David
+//Assignment: Final Project Black Jack
+
+public class DeckOCards {
+
+	private SweetSuit CharlesSuit;
+
+	private int myNums;
+
+	public DeckOCards (SweetSuit aSuit, int aNumber)	{
+
+
+		this.CharlesSuit = aSuit;
+
+		if (aNumber>=1 && aNumber <= 13)	{
+			this.myNums = aNumber;
+
+		} else {
+			System.err.println(aNumber + "is not a valid card number, silly goose");
+			System.exit(1);
+		}
+
+	}
+
+	public int getNumber ()	{
+		return myNums;
+
+
+	}
+
+	public String toString()	{
+
+		String numStr = "Error";
+
+		switch(this.myNums)	{
+
+		case 2:
+			numStr="Two";
+			break;
+
+		case 3:
+			numStr = "Three";
+			break;
+
+
+		case 4:
+			numStr = "Four";
+			break;
+
+
+		case 5:
+			numStr = "Five";
+			break;
+
+
+		case 6:
+			numStr = "Six";
+			break;
+
+		case 7:
+			numStr = "Seven";
+			break;
+															//the value of every possible card
+		case 8:												// the enum called "Sweet Suit" includes
+															// the symbols on the cards
+			numStr = "Eight";
+			break;
+
+		case 9:
+			numStr = "Nine";
+			break;
+
+		case 10:
+			numStr = "Ten";
+			break;
+
+		case 11:
+			numStr = "Jack";
+			break;
+
+		case 12:
+			numStr = "Queen";
+			break;
+
+
+		case 13:
+			numStr = "King";
+			break;
+
+		case 1:
+			numStr = "Ace";
+			break;
+
+
+		}
+
+
+		return numStr + " of " + CharlesSuit.toString();
+
+	}
+
+}
