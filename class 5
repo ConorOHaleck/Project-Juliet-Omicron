@@ -1,0 +1,119 @@
+import java.util.Random;
+
+public class WhatsInTheDeck {
+
+	private DeckOCards[] myCards;
+
+
+	private int numCards;
+
+	public WhatsInTheDeck()	{
+		//call other constructor, defining one deck without shuffling
+		this (1,false);
+
+	}
+	public WhatsInTheDeck(int numDecks, boolean shuffle)   {
+
+		this.numCards = numDecks *52;
+		this.myCards = new DeckOCards [this.numCards];
+
+		//card index
+
+		int c=0;
+
+		//for each deck
+		for (int d = 0; d<numDecks; d++)	{
+
+			//for each suit
+			for (int s=0; s<4; s++)	{
+
+
+				//for each number
+				for(int n=1; n<=13; n++)	{
+
+					//add a new card to the deck
+
+					this.myCards[c] = new DeckOCards(SweetSuit.values() [s], n );
+					c++;
+
+
+				}
+
+			}
+		}
+
+		//shuffle the deck if needed
+
+		if(shuffle)	{
+
+			this.shuffle();
+
+
+		}
+
+
+	}
+
+	//shuffle deck by randomly swapping pairs of cards, simulating a real world game of black jack
+
+	public void shuffle ()	{
+		//init random number generator
+		Random rng = new Random();
+
+		//temporary card
+
+		DeckOCards temp;
+
+		int j;
+		for (int i=0; i<this.numCards; i++)	{
+
+
+			//get a random card j to swap i's value with	
+
+			j=rng.nextInt(this.numCards);
+
+			//do swap
+
+			temp = this.myCards[i];
+			this.myCards[i] = this.myCards[j];
+			this.myCards[j] = temp;
+
+
+		}
+	}
+
+
+	public DeckOCards dealnextCard() {
+
+		//get the top card
+
+		DeckOCards top = this.myCards[0];
+
+
+		//shift subsequent cards to the left by one index
+
+		for(int c =1; c < this.numCards; c++) {
+			this.myCards[c-1] = this.myCards[c];
+		}
+
+		this.myCards[this.numCards-1] = null;
+
+		//decrement the number of cards in the deck
+
+		this.numCards--;
+		return top;
+
+	}
+
+	//print cards in the deck
+	public void printWhatsInTheDeck(int numToPrint)	{
+
+		for(int c = 0; c<numToPrint; c++)	{
+			System.out.printf("% 3d/%d %s\n", c+1, this.numCards, this.myCards[c]. toString());
+		}
+
+		System.out.printf("\t[%d others]\n", this.numCards-numToPrint);
+
+	}
+
+}
