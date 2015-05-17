@@ -1,0 +1,93 @@
+Enter file contents here
+import java.util.Scanner;
+
+public class TheGameBlackJack {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner (System.in);
+		WhatsInTheDeck theDeck = new WhatsInTheDeck (1, true);
+
+
+		ThePlayerCharlie me= new ThePlayerCharlie ("Champagne Charlie's");
+		ThePlayerCharlie Casino = new ThePlayerCharlie ("George Grenville The Dealer");
+
+		me. addCard(theDeck. dealnextCard());
+		Casino.addCard (theDeck .dealnextCard());
+		System.out.println("The Cards have been dealt Mr. Townshend\n");
+
+
+		me.printHand(true);
+		Casino.printHand(false);
+		System.out.println("\n");
+
+
+		boolean meDone = false;
+		boolean dealerDone= false;
+		String ans;
+
+
+		while(!meDone || !dealerDone)	{
+
+			if(!meDone)	{
+				System.out.print("Another Hit or Stay Sir? (H for Hit, S for Stay): ");
+				ans = sc. next();	
+
+
+				System.out.println();
+
+
+				//if Charlie wants to hit
+				if(ans.compareToIgnoreCase("H")==0) {
+					meDone = !me.addCard(theDeck.dealnextCard());
+					me.printHand(true);
+
+				} else {
+
+
+					meDone = true;
+				}
+
+			}
+
+			if(!dealerDone)	{
+
+				if (Casino.getHandSum () <17)		{
+
+					System.out.println("The Dealer Hits\n");
+					dealerDone = !Casino.addCard(theDeck.dealnextCard());
+					Casino.printHand(false);
+
+
+				} else {
+
+					System.out.println("The Casino Stays\n");
+					dealerDone= true;
+				}
+
+			}
+
+			System.out.println();
+		}
+
+		sc.close();
+
+		me.printHand(true);
+		Casino.printHand(true);
+
+
+		int mySum = me.getHandSum();
+		int dealerSum = Casino.getHandSum();
+
+		//Charlie wins if his sum is bigger than the dealer's / Casino's sum thats how black jack is played
+
+		if(mySum >dealerSum && mySum<=21 || dealerSum>21) {
+
+			System.out.println("Charlie Wins! Bring out the Champagne!");
+
+		} else {
+
+			System.out.println("The Casino Wins! Charlie drowns his sorrows in Champagne.");
+		}
+	}
+}
