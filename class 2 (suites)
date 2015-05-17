@@ -1,0 +1,11 @@
+Enter file contents herepublic enum SweetSuit {
+
+Clubs,
+Diamonds,
+Spades,
+Hearts		//type of cards there are in BlackJack aka 21
+
+
+
+
+}
