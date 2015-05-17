@@ -1,0 +1,104 @@
+public class ThePlayerCharlie {
+
+	private String name;
+
+	private DeckOCards [] hand = new DeckOCards [10];	//safe to say you wont get more than 10 cards until
+	//you go over 21. That's possible, but it would be a miracle!
+
+	private int numCards;
+
+	public ThePlayerCharlie(String aName)	{
+
+		this.name = aName;
+
+		//set player's hand to empty
+		this.emptyHand();
+
+
+	}
+
+	public void emptyHand()	{
+
+
+		for(int c=0; c<10; c++)	{
+			this.hand[c] = null;
+		}
+
+		this.numCards = 0;
+
+
+	}
+	//whether the sum of the cards in the players hand in above 21, basically saying if you lose
+	public boolean addCard(DeckOCards aCard)	{
+		if (this.numCards ==10)		{
+			System.err.printf("%s's hand already has 10 cards; "
+					+ "cannot add another\n ", this.name);
+
+			System.exit(1);
+
+
+		}
+
+		// add new card to next slot, increment number of cards counter
+		this.hand[this.numCards] = aCard;
+		this.numCards++;
+
+		return(this.getHandSum() <=21);
+
+	}
+
+	public int getHandSum () {
+
+		int handSum = 0;
+		int CardNum;
+		int numAces = 0;
+		//calculate how much each card contributes to the hand sum
+
+		for(int c=0; c<this.numCards; c++)	{
+
+			//get number for current card
+			CardNum = this. hand[c].getNumber();
+
+
+			if(CardNum==1)	{	//Like an Ace since Ace has value of 1
+				numAces++;
+				handSum +=11;
+
+			} else if (CardNum > 10)	{
+
+				handSum+=10;
+
+			} else {
+
+				handSum+=CardNum;
+			}
+
+		}
+
+
+		while (handSum > 21 && numAces>0) {
+
+			handSum-= 10;
+			numAces--;
+
+		}
+		return handSum;
+
+	}
+
+
+	public void printHand(boolean showFirstCard)	{
+
+		System.out.printf("%s's cards:\n", this.name);
+		for(int c = 0; c < this.numCards; c++) {
+			if(c==0 && !showFirstCard)	{
+
+				System.out.println("  [the dealer's card is hidden]");
+
+			} else	{
+
+				System.out.printf("  %s\n", this.hand[c].toString());
+			}
+		}
+	}
+}e
