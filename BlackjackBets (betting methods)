@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+
+public class BlackjackBets {
+	static int betAmount; 
+	public static int moneyTotal = 20; //Amount of money the player will start with, using 20 as placeholder.
+
+	public static int getBets() { //Gets the bets (duh).
+		Scanner kbd = new Scanner(System.in);
+		System.out.println("You currently have: $" +moneyTotal);
+		System.out.print("Enter the amount you wish to bet here: ");
+		betAmount = kbd.nextInt(); 
+
+		while (betAmount <= 0 || betAmount > moneyTotal) {
+
+			if (betAmount <= 0) {
+				System.out.println("Don't you cheap out on me!");
+				System.out.print("Enter the amount you wish to bet here: ");
+				betAmount = kbd.nextInt();
+			} 
+			else if (betAmount > moneyTotal) {
+				System.out.println("You don't have enough money!");
+				System.out.print("Enter the amount you wish to bet here: ");
+				betAmount = kbd.nextInt();
+			}  
+		}
+		if (betAmount == moneyTotal) {
+			System.out.println("All in huh? Good luck");
+		}
+
+		moneyTotal = moneyTotal - betAmount;
+		System.out.print("You have bet: " + betAmount);
+		System.out.println(" dollars");
+		
+		return betAmount;
+	}
+
+	public static String ifWin() { //Method to run if the player wins
+
+		int returnAmount = 0;
+		String result;
+		returnAmount = betAmount*2;
+		moneyTotal = returnAmount + moneyTotal;
+		result = "Congratulations! You have won: $" + betAmount;
+
+		return result;
+	}
+	public static String ifLose() { //Method to run if the player loses
+
+		String result;
+		result = "You have lost: $" + betAmount;
+		return result;
+	}
+	public static String ifDraw() { //Method to run if the game draws (can put this in a try catch as a form of error, since it just resets the round)
+
+		moneyTotal = betAmount + moneyTotal;
+		return "It's a draw.";
+	}
+	public static String totalCount() { //Reads off how much money the player has
+		return "You currently have: $" + moneyTotal;
+	}
+
+}
