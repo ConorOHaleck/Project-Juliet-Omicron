@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+// Use this to run everything
+public class BlackjackTest {
+
+	public static void main(String[] args) {
+		Scanner kbd = new Scanner(System.in);
+		BlackjackBets.getBets(); // Only will really use lines 8, 14, 17, and 22, the rest is just set up for the demo
+		System.out.println("win = 1");
+		System.out.println("lose = 2");
+		System.out.println("Draw = 3");
+		int condition = kbd.nextInt();
+		if (condition == 1) {
+			System.out.println(BlackjackBets.ifWin());
+		}
+		else if (condition == 2) {
+			System.out.println(BlackjackBets.ifLose());
+		}
+		else if (condition == 3) {
+			System.out.println(BlackjackBets.ifDraw());
+		}
+		System.out.println(BlackjackBets.totalCount());
+
+	}
+
+}
