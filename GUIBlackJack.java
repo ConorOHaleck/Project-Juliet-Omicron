@@ -34,7 +34,7 @@ public class GUIBlackJack {
 	
 	
 	private final JLabel lblPlayerName = new JLabel("PLAYER NAME");
-	private final JLabel lblPlayerMoney = new JLabel("PLAYER MONEY");
+	private final static JLabel lblPlayerMoney = new JLabel("PLAYER MONEY");
 	private final JButton btnHit = new JButton("Hit");
 	private final JButton btnCall = new JButton("Call");
 	
@@ -54,7 +54,7 @@ public class GUIBlackJack {
 
 	private void initialize() {
 		
-		Player nubCake = new Player("Herman", 500);
+		final Player nubCake = new Player();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1339, 1000);
@@ -74,6 +74,7 @@ public class GUIBlackJack {
 				Hand dHand = new Hand(); //Dealer's Hand
 				
 				deck.shuffle();
+				BlackjackBets.getBets();
 				
 				writeToConsole("The game is afoot!");
 				
@@ -205,7 +206,7 @@ public class GUIBlackJack {
 	public Image imageFind() {
 		Image cardImage;
 	       try {
-	          cardImage = ImageIO.read(new File("C:/Users/Conchobar/Desktop/CARDS.jpg"));
+	          cardImage = ImageIO.read(new File("C:/Users/RJ/Desktop/CARDS.jpg"));
 	          return cardImage;
 	       } catch (IOException ex) {
 	            System.out.println("Oh god, oh god, we couldn't find it at all!");
@@ -220,7 +221,7 @@ public class GUIBlackJack {
 		btnCall.setEnabled(false);
 	}
 	
-	public void waitForInput(Player p1, Deck deck, Hand pHand, Hand dHand){
+	public void waitForInput(final Player p1, final Deck deck, final Hand pHand, final Hand dHand){
 		btnHit.setEnabled(true);
 		btnCall.setEnabled(true);
 		btnHit.addActionListener(new ActionListener() {
@@ -280,5 +281,8 @@ public class GUIBlackJack {
 			}
 			
 		}
+	}
+	public static void updateMoney() {
+		lblPlayerMoney.setText("" + Player.cash);
 	}
 }
