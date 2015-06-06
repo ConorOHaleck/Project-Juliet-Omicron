@@ -39,15 +39,11 @@ public class Game {
 				window.writeToConsole("You won!");
 				p1.gamesPlayed += 1;
 				p1.gamesWon += 1;
-				pHand.dumpCards();
-				dHand.dumpCards();
 				window.gameOff();
 			}
 			else if(defeatCheck(pHand, dHand, isHit)){
 				window.writeToConsole("You lost!");
 				p1.gamesPlayed += 1;
-				pHand.dumpCards();
-				dHand.dumpCards();
 				window.gameOff();
 			}
 			else{
