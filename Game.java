@@ -19,29 +19,9 @@ public class Game {
 			}
 		});
 	}
-	public static void initialRound(Player p1, GUIBlackJack window){
-		Deck deck = new Deck();
-		Hand pHand = new Hand(); //Player's Hand
-		Hand dHand = new Hand(); //Dealer's Hand
-		
-		deck.shuffle();
-		
-		window.writeToConsole("The game is afoot!");
-		
-		dHand.addCard(deck.dealCard());
-		window.addHandCards(dHand.getHand(), false);
-		window.writeToConsole("" + dHand.getVal());
-		pHand.addCard(deck.dealCard());
-		window.addHandCards(pHand.getHand(), true);
-		window.writeToConsole("" + pHand.getVal());
-		
-		window.writeToConsole("What are you going to do now?");
-		window.waitForInput(p1, deck, pHand, dHand);
-		
-	}
 	
 	
-	public static void nextRound(Player p1, GUIBlackJack window, Deck deck, Hand pHand, Hand dHand, boolean isHit){
+	public static void nextRound(Player p1, GUIBlackJack window, Deck deck, Hand pHand, Hand dHand, boolean isHit, boolean isFirst){
 		
 		if(isHit){
 			pHand.addCard(deck.dealCard());
@@ -52,27 +32,34 @@ public class Game {
 		}
 		
 		window.addHandCards(dHand.getHand(), false);
-		window.writeToConsole("" + dHand.getVal());
 		
 		window.addHandCards(pHand.getHand(), true);
-		window.writeToConsole("" + pHand.getVal());
+		if(isFirst != true){
+			if(victoryCheck(pHand, dHand, isHit)){
+				window.writeToConsole("You won!");
+				p1.gamesPlayed += 1;
+				p1.gamesWon += 1;
+				pHand.dumpCards();
+				dHand.dumpCards();
+				window.gameOff();
+			}
+			else if(defeatCheck(pHand, dHand, isHit)){
+				window.writeToConsole("You lost!");
+				p1.gamesPlayed += 1;
+				pHand.dumpCards();
+				dHand.dumpCards();
+				window.gameOff();
+			}
+			else{
+				window.writeToConsole("What are you going to do now?");
+				window.waitForInput(p1, deck, pHand, dHand);
+			}
+		}
 		
-		if(victoryCheck(pHand, dHand, isHit)){
-			window.writeToConsole("You won!");
-			p1.gamesPlayed += 1;
-			p1.gamesWon += 1;
-			window.gameOff();
-		}
-		else if(defeatCheck(pHand, dHand, isHit)){
-			window.writeToConsole("You lost!");
-			p1.gamesPlayed += 1;
-			window.gameOff();
-		}
 		else{
 			window.writeToConsole("What are you going to do now?");
 			window.waitForInput(p1, deck, pHand, dHand);
 		}
-		
 		
 		
 	}
